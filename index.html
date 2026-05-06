@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para ti 💖</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #ff4da6, #ff99cc, #660033);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+/* CONTENIDO */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-size: 2.7em;
+    color: #fff;
+    text-shadow:
+        0 0 10px #fff,
+        0 0 20px #ff66cc,
+        0 0 40px #ff3399;
+    animation: aparecer 2s ease forwards;
+    opacity: 0;
+}
+
+p {
+    font-size: 1.3em;
+    margin-top: 20px;
+    text-shadow: 0 0 10px pink;
+    animation: aparecer 3s ease forwards;
+    opacity: 0;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* CORAZONES SUAVES */
+.heart {
+    position: absolute;
+    color: rgba(255,255,255,0.2);
+}
+
+/* CORAZONES CAYENDO */
+.fall {
+    position: absolute;
+    font-size: 18px;
+    animation: caer linear infinite;
+}
+
+@keyframes caer {
+    from {
+        transform: translateY(-10vh);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+
+/* ALE RAYO CON RASTRO */
+.rayo {
+    position: absolute;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    text-shadow:
+        0 0 5px white,
+        0 0 15px #ff66cc,
+        0 0 30px #ff1493;
+
+    animation: bajar linear infinite;
+}
+
+@keyframes bajar {
+    0% {
+        transform: translateY(-20vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(120vh);
+        opacity: 0;
+    }
+}
+
+/* RASTRO (sombra tipo energía) */
+.trail {
+    position: absolute;
+    font-size: 18px;
+    color: rgba(255,255,255,0.15);
+    filter: blur(2px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>
+        💖 ¿Te gustaría empezar una nueva etapa conmigo como pareja? 💕
+    </h1>
+
+    <p>
+        Solo mírame... y dime lo que sientas 💫
+    </p>
+</div>
+
+<script>
+
+// CORAZONES DE FONDO
+for (let i = 0; i < 60; i++) {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.top = Math.random() * 100 + "vh";
+    h.style.fontSize = (10 + Math.random() * 25) + "px";
+    document.body.appendChild(h);
+}
+
+// CORAZONES CAYENDO
+for (let i = 0; i < 40; i++) {
+    let f = document.createElement("div");
+    f.className = "fall";
+    f.innerHTML = "💖";
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(f);
+}
+
+// ALE COMO RAYOS CON RASTRO
+function crearRayo() {
+    let x = Math.random() * window.innerWidth;
+
+    for (let i = 0; i < 5; i++) {
+        let trail = document.createElement("div");
+        trail.className = "trail";
+        trail.innerText = "Ale";
+        trail.style.left = x + "px";
+        trail.style.top = (-20 - i * 10) + "px";
+        document.body.appendChild(trail);
+
+        let speed = 3 + Math.random() * 2;
+
+        function mover() {
+            let y = trail.offsetTop + speed;
+            trail.style.top = y + "px";
+            trail.style.opacity -= 0.01;
+
+            if (y < window.innerHeight && trail.style.opacity > 0) {
+                requestAnimationFrame(mover);
+            } else {
+                trail.remove();
+            }
+        }
+        mover();
+    }
+
+    let main = document.createElement("div");
+    main.className = "rayo";
+    main.innerText = "Ale";
+    main.style.left = x + "px";
+    document.body.appendChild(main);
+}
+
+// GENERAR RAYOS CONSTANTEMENTE
+setInterval(crearRayo, 300);
+
+</script>
+
+</body>
+</html>
